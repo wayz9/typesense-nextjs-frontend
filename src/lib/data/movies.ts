@@ -114,28 +114,41 @@ function toTypesenseSort(params: URLSearchParams): string | undefined {
   return `${field}:asc`;
 }
 
+function typTypesenseQueryBy(params: URLSearchParams): string {
+  let queryMode = params.get("_query_mode") || "title,description";
+  const allowedQueryModes = ["title", "title,description"];
+
+  if (!allowedQueryModes.includes(queryMode)) {
+    queryMode = "title,description";
+  }
+
+  return queryMode;
+}
+
 export async function getMovies(
   params = new URLSearchParams()
 ): Promise<MoviesResponse> {
   let q = String(params.get("q") || "*");
-  let perPage = Number(params.get("per_page") || 20);
   let filterBy = toTypesenseFilters(params);
   let sortBy = toTypesenseSort(params);
+  let queryBy = typTypesenseQueryBy(params);
 
   let searchParams: SearchParams = {
     q,
-    query_by: "title,description",
+    query_by: queryBy,
     facet_by: "release_status,genres",
     max_facet_values: 100,
-    per_page: perPage,
+    per_page: 20,
     filter_by: filterBy,
     sort_by: sortBy,
   };
 
-  let { hits, facet_counts, found } = await client
+  let response = await client
     .collections("popular_movies")
     .documents()
     .search(searchParams, { cacheSearchResultsForSeconds: 0 });
+
+  let { hits, facet_counts, found } = response;
 
   const movies = hits?.map((hit) => {
     let movie = movieSchema.parse(hit.document);

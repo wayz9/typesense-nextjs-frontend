@@ -19,7 +19,7 @@ export default function Rating() {
   let { push } = useRouter();
   let params = useSearchParams();
 
-  let defaultVal = params.get("rating") || "good";
+  let defaultVal = params.get("rating") || "all";
   let [_, startTransition] = useTransition();
   let [rating, setRating] = useOptimistic(defaultVal);
 

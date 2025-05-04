@@ -1,6 +1,7 @@
 import { facetFieldLabels, getMovies } from "@/lib/data/movies";
 import { toURLSearchParams } from "@/lib/utils";
 import FacetFilter from "@/ui/filters/facet-filter";
+import QueryMode from "@/ui/filters/query-mode";
 import Rating from "@/ui/filters/rating";
 import Search from "@/ui/filters/search";
 import SortBy from "@/ui/filters/sort-by";
@@ -14,9 +15,10 @@ type PageProps = {
 };
 
 const statements = [
-  "Fully self hosted typesense 10$ VPS",
-  "Next.js server-side rendering and image optimization",
-  "Minimal dependencies and lightweight bundle",
+  "[DIGITALOCEAN] Self hosted typesense on a 28$ shared droplet",
+  "[VERCEL] Next.js server-side rendering and image optimization",
+  "Basic dependencies for UI and typesense client",
+  "Laravel backend to synchronize the dataset with typesense",
 ];
 
 function GitMark({ className }: { className?: string }) {
@@ -46,10 +48,11 @@ export default async function Home({ searchParams }: PageProps) {
         <h1 className="text-xl font-semibold tracking-tight text-white">
           The ~10K movies demo ⭐
         </h1>
-        <p className="mt-2 text-sm/6 text-zinc-300 text-balance max-w-2xl">
-          A simple demo of self hosted typesense with 10K movies dataset
-          utilized by Next.js server-side rendering. Laravel is used as a
-          backend to synchronize the dataset with typesense.
+        <p className="mt-2 text-sm/6 text-zinc-300 max-w-2xl">
+          A proof-of-concept showcasing a self-hosted Typesense search engine
+          powered by a ~10K movie dataset. The user-friendly UI, built with
+          Next.js and server-side rendering, delivers fast and responsive search
+          experiences.
         </p>
 
         <ul className="mt-6 space-y-2 text-sm text-white font-medium">
@@ -68,14 +71,18 @@ export default async function Home({ searchParams }: PageProps) {
 
         <div className="flex items-center gap-x-6 mt-8">
           <Link
-            href="#"
+            href="https://github.com/wayz9/typesense-laravel-backend"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm/[18px] flex items-center font-semibold text-white"
           >
             <GitMark className="text-white size-[1lh] mr-1.5" />
             Backend
           </Link>
           <Link
-            href="#"
+            href="https://github.com/wayz9/typesense-nextjs-frontend"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm/[18px] flex items-center font-semibold text-white"
           >
             <GitMark className="text-white size-[1lh] mr-1.5" />
@@ -92,7 +99,10 @@ export default async function Home({ searchParams }: PageProps) {
 
           <div className="mt-5 space-y-8 w-full">
             <div className="space-y-2">
-              <Search delay={75} className="w-full" />
+              <div className="flex items-center gap-x-2">
+                <Search delay={75} className="w-full" />
+                <QueryMode />
+              </div>
               <SortBy />
             </div>
 

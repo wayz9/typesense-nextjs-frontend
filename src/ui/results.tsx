@@ -1,8 +1,13 @@
 "use client";
 
 import { Movie } from "@/lib/data/movies";
-import { IconMoodSadFilled, IconStarFilled } from "@tabler/icons-react";
+import {
+  IconMoodSadFilled,
+  IconRefresh,
+  IconStarFilled,
+} from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
 
 type ResultsProps = {
   movies: Movie[];
@@ -62,8 +67,17 @@ export default function Results({ movies, total }: ResultsProps) {
     <section className="flex-1 py-4">
       <div className="flex items-center justify-between">
         <h3 className="font-medium tracking-tight text-white">
-          Found {Number(total).toLocaleString("en-US")} results.
+          {Number(total).toLocaleString("en-US")} hits
         </h3>
+
+        <Link
+          href="/?page=1"
+          scroll={false}
+          className="flex items-center gap-x-2 text-sm font-semibold"
+        >
+          <IconRefresh className="text-zinc-400 size-[18px]" />
+          <span className="text-zinc-100">Reset filters</span>
+        </Link>
       </div>
 
       <div className="mt-6 grid grid-cols-4 auto-rows-max gap-x-2.5 gap-y-3.5">
@@ -76,10 +90,10 @@ export default function Results({ movies, total }: ResultsProps) {
             <div className="flex flex-col items-center justify-center text-center">
               <IconMoodSadFilled className="text-zinc-500 size-9" />
               <p className="mt-3 text-base font-medium tracking-tight text-white">
-                No results found
+                Sorry, we couldn&apos;t find it.
               </p>
-              <p className="text-sm text-gray-400 mt-0.5">
-                Try &quot;spiderman&quot; or &quot;marvel&quot; for example.
+              <p className="text-sm text-zinc-400 mt-0.5">
+                Try &quot;spiderman&quot; or &quot;predator&quot; for example.
               </p>
             </div>
           </div>
