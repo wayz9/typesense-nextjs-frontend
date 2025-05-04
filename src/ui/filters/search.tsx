@@ -23,7 +23,6 @@ export default function Search({
 
   let handleSearch = useDebouncedCallback((value: string) => {
     let newParams = new URLSearchParams(params);
-    newParams.set("page", "1");
 
     if (value) {
       newParams.set(queryKey, value);

@@ -32,8 +32,11 @@ export default function Rating() {
         onValueChange={(value) => {
           let newParams = new URLSearchParams(params);
 
-          newParams.set("page", "1");
           newParams.set(queryKey, value);
+          window.scrollTo({
+            top: 398,
+            behavior: "smooth",
+          });
 
           startTransition(() => {
             setRating(value);

@@ -162,9 +162,13 @@ export default function FacetFilter(props: FacetFilteProps) {
                   onChange={() => {
                     let stringParams = createQueryString(value);
 
+                    window.scrollTo({
+                      top: 398,
+                      behavior: "smooth",
+                    });
+
                     startTransition(() => {
                       let newParams = new URLSearchParams(stringParams);
-                      newParams.set("page", "1");
                       setOptimisticParams(newParams);
                       push(`?${newParams.toString()}`, { scroll: false });
                     });
