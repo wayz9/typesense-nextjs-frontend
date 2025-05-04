@@ -1,4 +1,5 @@
-import { facetFieldLabels, getMovies } from "@/lib/data/movies";
+import { FACET_FIELD_LABELS } from "@/lib/data/config";
+import { getMovies } from "@/lib/data/movies";
 import { toURLSearchParams } from "@/lib/utils";
 import FacetFilter from "@/ui/filters/facet-filter";
 import QueryMode from "@/ui/filters/query-mode";
@@ -114,7 +115,7 @@ export default async function Home({ searchParams }: PageProps) {
                 queryKey={facet.field_name}
                 options={facet.counts}
                 //@ts-expect-error The labels aren't stongly defined (yet??)...
-                title={facetFieldLabels[facet.field_name] ?? facet.field_name}
+                title={FACET_FIELD_LABELS[facet.field_name] ?? facet.field_name}
                 hits={facet.stats.total_values}
               />
             ))}

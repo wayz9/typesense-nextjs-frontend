@@ -1,6 +1,8 @@
 "use client";
 
+import { loadMore } from "@/lib/actions/load-more";
 import { Movie } from "@/lib/data/movies";
+import Spinner from "@/ui/components/spinner";
 import {
   IconMoodSadFilled,
   IconRefresh,
@@ -8,11 +10,60 @@ import {
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useInView } from "react-intersection-observer";
 
 type ResultsProps = {
   movies: Movie[];
   total: number;
 };
+
+function LoadMoreZone({
+  setItems,
+}: {
+  setItems: Dispatch<SetStateAction<Movie[]>>;
+}) {
+  let params = useSearchParams();
+  let { inView, ref } = useInView({ threshold: 0.1 });
+
+  let [page, setPage] = useState(1);
+  let [loading, setLoading] = useState(false);
+
+  const loadMoreItems = useCallback(async () => {
+    if (loading) return;
+    setLoading(true);
+    setPage((prev) => prev + 1);
+    let newMovies = await loadMore(params.toString(), page + 1);
+    setLoading(false);
+    setItems((prev) => [...prev, ...newMovies]);
+  }, [page, loading, params, setItems]);
+
+  useEffect(() => {
+    if (inView && !loading) {
+      loadMoreItems();
+    }
+  }, [inView, loading, loadMoreItems]);
+
+  return (
+    <div
+      ref={ref}
+      data-in-view={inView}
+      className="group h-(--offset) absolute inset-x-0 grid place-items-center text-[13px] text-zinc-500"
+    >
+      <div className="flex items-center justify-center gap-x-2 group-data-[in-view=true]:visible invisible">
+        <Spinner className="text-zinc-300 size-4" />
+        Loading more results...
+      </div>
+    </div>
+  );
+}
 
 function Item({ movie }: { movie: Movie }) {
   let releaseDate = movie.release_date
@@ -63,15 +114,23 @@ function Item({ movie }: { movie: Movie }) {
 }
 
 export default function Results({ movies, total }: ResultsProps) {
+  let [items, setItems] = useState(movies);
+
+  useEffect(() => {
+    setItems(movies);
+  }, [movies]);
+
+  let canLoadMore = total > items.length;
+
   return (
-    <section className="flex-1 py-4">
+    <section className="relative flex-1 pt-4 [--offset:--spacing(14)] pb-(--offset)">
       <div className="flex items-center justify-between">
         <h3 className="font-medium tracking-tight text-white">
           {Number(total).toLocaleString("en-US")} hits
         </h3>
 
         <Link
-          href="/?page=1"
+          href="/"
           scroll={false}
           className="flex items-center gap-x-2 text-sm font-semibold"
         >
@@ -81,11 +140,11 @@ export default function Results({ movies, total }: ResultsProps) {
       </div>
 
       <div className="mt-6 grid grid-cols-4 auto-rows-max gap-x-2.5 gap-y-3.5">
-        {movies.map((movie) => (
+        {items.map((movie) => (
           <Item key={movie.id} movie={movie} />
         ))}
 
-        {movies.length === 0 && (
+        {items.length === 0 && (
           <div className="col-span-4 h-102 grid place-items-center">
             <div className="flex flex-col items-center justify-center text-center">
               <IconMoodSadFilled className="text-zinc-500 size-9" />
@@ -99,6 +158,8 @@ export default function Results({ movies, total }: ResultsProps) {
           </div>
         )}
       </div>
+
+      {canLoadMore && <LoadMoreZone setItems={setItems} />}
     </section>
   );
 }

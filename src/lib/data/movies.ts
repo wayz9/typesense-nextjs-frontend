@@ -1,5 +1,6 @@
 import "server-only";
 
+import { MAX_FACET_VALUES, PER_PAGE } from "@/lib/data/config";
 import client from "@/lib/typesense";
 import { SearchParams } from "typesense/lib/Typesense/Documents";
 import { z } from "zod";
@@ -43,11 +44,6 @@ type MoviesResponse = {
   movies: Movie[];
   facets: Facet[];
   found: number;
-};
-
-export const facetFieldLabels = {
-  genres: "Genres",
-  release_status: "Status",
 };
 
 function toTypesenseFilters(params: URLSearchParams): string | undefined {
@@ -126,7 +122,8 @@ function typTypesenseQueryBy(params: URLSearchParams): string {
 }
 
 export async function getMovies(
-  params = new URLSearchParams()
+  params = new URLSearchParams(),
+  page = 1
 ): Promise<MoviesResponse> {
   let q = String(params.get("q") || "*");
   let filterBy = toTypesenseFilters(params);
@@ -137,10 +134,11 @@ export async function getMovies(
     q,
     query_by: queryBy,
     facet_by: "release_status,genres",
-    max_facet_values: 100,
-    per_page: 20,
+    max_facet_values: MAX_FACET_VALUES,
+    per_page: PER_PAGE,
     filter_by: filterBy,
     sort_by: sortBy,
+    page,
   };
 
   let response = await client
