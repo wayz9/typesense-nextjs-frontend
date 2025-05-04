@@ -31,7 +31,7 @@ function LoadMoreZone({
   setItems: Dispatch<SetStateAction<Movie[]>>;
 }) {
   let params = useSearchParams();
-  let { inView, ref } = useInView({ threshold: 0.25, delay: 175 });
+  let { inView, ref } = useInView({ threshold: 1 });
 
   let [page, setPage] = useState(1);
   let [loading, setLoading] = useState(false);
