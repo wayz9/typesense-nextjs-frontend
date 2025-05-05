@@ -33,9 +33,10 @@ export default function Rating() {
           let newParams = new URLSearchParams(params);
 
           newParams.set(queryKey, value);
+
           window.scrollTo({
             top: 398,
-            behavior: "smooth",
+            behavior: "instant",
           });
 
           startTransition(() => {

@@ -164,7 +164,7 @@ export default function FacetFilter(props: FacetFilteProps) {
 
                     window.scrollTo({
                       top: 398,
-                      behavior: "smooth",
+                      behavior: "instant",
                     });
 
                     startTransition(() => {

@@ -46,9 +46,19 @@ function LoadMoreZone({
   }, [page, loading, params, setItems]);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+
     if (inView && !loading) {
-      loadMoreItems();
+      timeoutId = setTimeout(() => {
+        loadMoreItems();
+      }, 175);
     }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, [inView, loading, loadMoreItems]);
 
   return (
