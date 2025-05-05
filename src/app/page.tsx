@@ -10,7 +10,6 @@ import Results from "@/ui/results";
 import { IconCheck } from "@tabler/icons-react";
 import { SearchParams } from "next/dist/server/request/search-params";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 type PageProps = {
   searchParams: Promise<SearchParams>;
@@ -42,11 +41,6 @@ function GitMark({ className }: { className?: string }) {
 
 export default async function Home({ searchParams }: PageProps) {
   let params = toURLSearchParams(await searchParams);
-
-  if (params.get('release_status') === null) {
-    redirect('/?release_status=Released');
-  }
-
   let { movies, facets, found } = await getMovies(params);
 
   return (
