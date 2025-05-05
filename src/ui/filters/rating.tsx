@@ -6,10 +6,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useOptimistic, useTransition } from "react";
 
 const groups = [
+  { label: "All", value: "all" },
   { label: "Good", value: "good", score: "7 - 10" },
   { label: "Average", value: "average", score: "3 - 7" },
   { label: "Bad", value: "bad", score: "0 - 3" },
-  { label: "All", value: "all", score: "0 - 10" },
   { label: "Unrated", value: "unrated", score: "N/A" },
 ];
 
@@ -58,10 +58,12 @@ export default function Rating() {
               <RadioGroup.Indicator className="absolute top-1/2 left-1/2 -translate-1/2 size-2.5 rounded-md bg-white" />
             </div>
             <p className="text-sm ml-2 text-white">{group.label}</p>
-            <p className="ml-auto text-xs tabular-nums font-medium text-zinc-200 flex items-center gap-x-1.5">
-              {group.score}
-              <IconStarFilled className="text-amber-400 size-3.5" />
-            </p>
+            {group.score && (
+              <p className="ml-auto text-xs tabular-nums font-medium text-zinc-200 flex items-center gap-x-1.5">
+                {group.score}
+                <IconStarFilled className="text-amber-400 size-3.5" />
+              </p>
+            )}
           </RadioGroup.Item>
         ))}
       </RadioGroup.Root>

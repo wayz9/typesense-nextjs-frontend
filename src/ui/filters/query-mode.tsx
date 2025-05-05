@@ -15,7 +15,7 @@ export default function QueryMode() {
   let params = useSearchParams();
 
   const queryKey = "_query_mode";
-  let queryMode = params.get(queryKey) || "title,description";
+  let queryMode = params.get(queryKey) || "title";
 
   let [open, setOpen] = useState(false);
 

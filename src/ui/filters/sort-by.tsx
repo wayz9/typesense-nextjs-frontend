@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const sortOptions = [
-  { label: "Latest", value: "-release_date", sort: "desc" },
+  { label: "Newest", value: "-release_date", sort: "desc" },
   { label: "Oldest", value: "release_date", sort: "asc" },
   { label: "Most Popular", value: "-rating", sort: "desc" },
   { label: "Least Popular", value: "rating", sort: "asc" },

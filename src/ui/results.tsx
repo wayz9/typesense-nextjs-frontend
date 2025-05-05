@@ -130,7 +130,7 @@ export default function Results({ movies, total }: ResultsProps) {
         </h3>
 
         <Link
-          href="/"
+          href="/?release_status=Released"
           scroll={false}
           className="flex items-center gap-x-2 text-sm font-semibold"
         >
