@@ -7,9 +7,9 @@ import { useOptimistic, useTransition } from "react";
 
 const groups = [
   { label: "All", value: "all" },
-  { label: "Good", value: "good", score: "7 - 10" },
-  { label: "Average", value: "average", score: "3 - 7" },
-  { label: "Bad", value: "bad", score: "0 - 3" },
+  { label: "Good", value: "good", score: "6 - 9" },
+  { label: "Average", value: "average", score: "3 - 6" },
+  { label: "Bad", value: "bad", score: "1 - 3" },
   { label: "Unrated", value: "unrated", score: "N/A" },
 ];
 
@@ -33,11 +33,6 @@ export default function Rating() {
           let newParams = new URLSearchParams(params);
 
           newParams.set(queryKey, value);
-
-          window.scrollTo({
-            top: 398,
-            behavior: "instant",
-          });
 
           startTransition(() => {
             setRating(value);

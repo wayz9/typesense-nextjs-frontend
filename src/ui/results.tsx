@@ -3,13 +3,8 @@
 import { loadMore } from "@/lib/actions/load-more";
 import { Movie } from "@/lib/data/movies";
 import Spinner from "@/ui/components/spinner";
-import {
-  IconMoodSadFilled,
-  IconRefresh,
-  IconStarFilled,
-} from "@tabler/icons-react";
+import { IconMoodSadFilled, IconStarFilled } from "@tabler/icons-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
   Dispatch,
@@ -133,23 +128,8 @@ export default function Results({ movies, total }: ResultsProps) {
   let canLoadMore = total > items.length;
 
   return (
-    <section className="relative flex-1 pt-4 [--offset:--spacing(14)] pb-(--offset)">
-      <div className="flex items-center justify-between">
-        <h3 className="font-medium tracking-tight text-white">
-          {Number(total).toLocaleString("en-US")} hits
-        </h3>
-
-        <Link
-          href="/"
-          scroll={false}
-          className="flex items-center gap-x-2 text-sm font-semibold"
-        >
-          <IconRefresh className="text-zinc-400 size-[18px]" />
-          <span className="text-zinc-100">Reset filters</span>
-        </Link>
-      </div>
-
-      <div className="mt-6 grid grid-cols-4 auto-rows-max gap-x-2.5 gap-y-3.5">
+    <>
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-max gap-x-2.5 gap-y-3.5">
         {items.map((movie) => (
           <Item key={movie.id} movie={movie} />
         ))}
@@ -170,6 +150,6 @@ export default function Results({ movies, total }: ResultsProps) {
       </div>
 
       {canLoadMore && <LoadMoreZone setItems={setItems} />}
-    </section>
+    </>
   );
 }

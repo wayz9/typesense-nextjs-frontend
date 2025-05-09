@@ -44,10 +44,7 @@ export default function SortBy() {
               onClick={() => {
                 let newParams = new URLSearchParams(params);
                 newParams.set(queryKey, value);
-                window.scrollTo({
-                  top: 398,
-                  behavior: "smooth",
-                });
+
                 push(`?${newParams.toString()}`, { scroll: false });
                 setOpen(false);
               }}

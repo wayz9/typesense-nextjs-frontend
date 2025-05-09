@@ -30,11 +30,6 @@ export default function Search({
       newParams.delete(queryKey);
     }
 
-    window.scrollTo({
-      top: 398,
-      behavior: "instant",
-    });
-
     replace(`${pathname}?${newParams.toString()}`, { scroll: false });
   }, delay);
 
