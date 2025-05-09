@@ -12,6 +12,7 @@ const movieSchema = z.object({
   description: z.string().optional(),
   rating: z.number().optional(),
   is_rated: z.boolean(),
+  tmdb_id: z.number().optional(),
   release_status: z.enum(["Released", "Upcoming"]),
   poster_url: z.string().optional(),
   backdrop_url: z.string().optional(),
@@ -115,7 +116,7 @@ function typTypesenseQueryBy(params: URLSearchParams): string {
   const allowedQueryModes = ["title", "title,description"];
 
   if (!allowedQueryModes.includes(queryMode)) {
-    queryMode = "title,description";
+    queryMode = "title";
   }
 
   return queryMode;

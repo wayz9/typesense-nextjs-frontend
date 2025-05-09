@@ -20,7 +20,7 @@ export default function QueryMode() {
   let [open, setOpen] = useState(false);
 
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger className="aspect-square size-9.5 bg-zinc-800 grid place-items-center rounded-md border border-zinc-700 focus:outline-none focus:ring focus:ring-zinc-500 focus:border-zinc-500">
         <IconAdjustmentsSearch
           className="size-5 text-zinc-400"
