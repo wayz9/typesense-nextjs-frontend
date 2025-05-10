@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${interVariable.className} antialiased bg-zinc-900`}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
