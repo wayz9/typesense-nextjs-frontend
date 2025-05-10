@@ -112,7 +112,12 @@ function toTypesenseSort(params: URLSearchParams): string | undefined {
 }
 
 function typTypesenseQueryBy(params: URLSearchParams): string {
-  let queryMode = params.get("_query_mode") || "title,description";
+  let queryMode = params.get("_query_mode");
+
+  if (!queryMode) {
+    return "title";
+  }
+
   const allowedQueryModes = ["title", "title,description"];
 
   if (!allowedQueryModes.includes(queryMode)) {

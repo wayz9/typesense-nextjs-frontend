@@ -38,7 +38,7 @@ export default function InfoModal() {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 backdrop-blur-sm" />
 
-        <Dialog.Content className="z-50 top-1/2 left-1/2 bg-zinc-900 max-w-2xl w-full rounded-xl shadow ring ring-inset ring-zinc-800 p-8 py-7.5 outline-none focus:outline-none absolute -translate-1/2 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
+        <Dialog.Content className="z-50 fixed top-1/2 left-1/2 bg-zinc-900 max-w-2xl w-full rounded-xl shadow ring ring-inset ring-zinc-800 p-8 py-7.5 outline-none focus:outline-none -translate-1/2 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
           <Dialog.Title className="text-xl font-semibold tracking-tight text-white">
             The ~10K movies demo ⭐️
           </Dialog.Title>

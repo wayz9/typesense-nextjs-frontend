@@ -1,4 +1,3 @@
-import StarsBackground from "@/ui/components/stars-background";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -25,15 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${interVariable.className} antialiased h-screen bg-zinc-900`}
-      >
+      <body className={`${interVariable.className} antialiased bg-zinc-900`}>
         {children}
-
-        <StarsBackground
-          starColor="#facc15"
-          className="fixed bottom-0 inset-x-0 h-[95vh] mask-radial mask-radial-from-0%"
-        />
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { Movie } from "@/lib/data/movies";
 import Spinner from "@/ui/components/spinner";
 import { IconMoodSadFilled, IconStarFilled } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
   Dispatch,
@@ -97,12 +98,14 @@ function Item({ movie }: { movie: Movie }) {
       </div>
 
       <div className="px-4 grow flex flex-col justify-between py-2.5">
-        <p
+        <Link
           title={movie.title}
+          prefetch
+          href={movie.tmdb_id ? `/movies/${movie.tmdb_id}` : "#"}
           className="line-clamp-2 text-sm text-white font-semibold"
         >
           {movie.title}
-        </p>
+        </Link>
         <div className="flex mt-0.5 items-center gap-x-2">
           <div className="flex items-center gap-x-1">
             <IconStarFilled className="text-amber-400 size-4" />
